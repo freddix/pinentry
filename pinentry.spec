@@ -1,11 +1,11 @@
 Summary:	Simple PIN or passphrase entry dialogs
 Name:		pinentry
-Version:	0.8.2
+Version:	0.8.3
 Release:	1
 License:	GPL v2+
 Group:		Applications
 Source0:	ftp://ftp.gnupg.org/gcrypt/pinentry/%{name}-%{version}.tar.bz2
-# Source0-md5:	82e6114e5e27a8ab36f314b332a6e024
+# Source0-md5:	2ae681cbca0d9fb774b2c90b11ebf56c
 Patch0:		0001-Fix-qt4-pinentry-window-created-in-the-background.patch
 URL:		http://www.gnupg.org/
 BuildRequires:	QtGui-devel
