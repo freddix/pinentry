@@ -1,7 +1,7 @@
 Summary:	Simple PIN or passphrase entry dialogs
 Name:		pinentry
 Version:	0.8.3
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		Applications
 Source0:	ftp://ftp.gnupg.org/gcrypt/pinentry/%{name}-%{version}.tar.bz2
