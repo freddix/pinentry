@@ -1,14 +1,13 @@
+# based on PLD Linux spec git://git.pld-linux.org/packages/pinentry.git
 Summary:	Simple PIN or passphrase entry dialogs
 Name:		pinentry
-Version:	0.8.3
-Release:	2
+Version:	0.9.0
+Release:	1
 License:	GPL v2+
 Group:		Applications
 Source0:	ftp://ftp.gnupg.org/gcrypt/pinentry/%{name}-%{version}.tar.bz2
-# Source0-md5:	2ae681cbca0d9fb774b2c90b11ebf56c
-Patch0:		0001-Fix-qt4-pinentry-window-created-in-the-background.patch
+# Source0-md5:	40a05856cb3accf6679987b7899b0f5a
 URL:		http://www.gnupg.org/
-BuildRequires:	QtGui-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gettext-devel
@@ -17,7 +16,6 @@ BuildRequires:	libcap-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	ncurses-devel
 BuildRequires:	pkg-config
-BuildRequires:	qt-build
 BuildRequires:	texinfo
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -28,43 +26,28 @@ http://www.gnupg.org/aegypten/ for details. Base package contains
 curses-based dialog.
 
 %package gtk
-Summary:	Simple PIN or passphrase entry dialog for GTK+ 1.x
+Summary:	Simple PIN or passphrase entry dialog for GTK+
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
 
 %description gtk
-Simple PIN or passphrase entry dialog for GTK+ 1.x.
-
-%package qt
-Summary:	Simple PIN or passphrase entry dialog for Qt
-Group:		X11/Applications
-Requires:	%{name} = %{version}-%{release}
-
-%description qt
-Simple PIN or passphrase entry dialog for Qt.
+Simple PIN or passphrase entry dialog for GTK+.
 
 %prep
 %setup -q
-%patch0 -p1
-
-cd qt4
-%{_bindir}/moc pinentrydialog.h  -o pinentrydialog.moc
-%{_bindir}/moc qsecurelineedit.h -o qsecurelineedit.moc
-cd ..
 
 %build
 %{__aclocal} -I m4
 %{__autoconf}
 %{__autoheader}
 %{__automake}
-CPPFLAGS="%{rpmcppflags} -I/usr/include/ncurses"
 %configure \
 	--disable-pinentry-gtk		\
 	--disable-pinentry-qt		\
+	--disable-pinentry-qt4		\
 	--enable-fallback-curses	\
 	--enable-pinentry-curses	\
-	--enable-pinentry-gtk2		\
-	--enable-pinentry-qt4
+	--enable-pinentry-gtk2
 %{__make}
 
 %install
@@ -83,8 +66,6 @@ elif [ -z "$DISPLAY" ]; then
 	exec %{_bindir}/pinentry-curses "$@"
 elif [ -x %{_bindir}/pinentry-gtk-2 ]; then
 	exec %{_bindir}/pinentry-gtk-2 "$@"
-elif [ -x %{_bindir}/pinentry-qt4 ]; then
-	exec %{_bindir}/pinentry-qt4 "$@"
 else
 	exec %{_bindir}/pinentry-curses "$@"
 fi
@@ -108,7 +89,4 @@ rm -rf $RPM_BUILD_ROOT
 
 %files gtk
 %attr(755,root,root) %{_bindir}/pinentry-gtk-2
-
-%files qt
-%attr(755,root,root) %{_bindir}/pinentry-qt4
 
