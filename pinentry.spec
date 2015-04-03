@@ -1,12 +1,12 @@
 # based on PLD Linux spec git://git.pld-linux.org/packages/pinentry.git
 Summary:	Simple PIN or passphrase entry dialogs
 Name:		pinentry
-Version:	0.9.0
+Version:	0.9.1
 Release:	1
 License:	GPL v2+
 Group:		Applications
 Source0:	ftp://ftp.gnupg.org/gcrypt/pinentry/%{name}-%{version}.tar.bz2
-# Source0-md5:	40a05856cb3accf6679987b7899b0f5a
+# Source0-md5:	d224d031130aedb44b05164cb04ed88b
 URL:		http://www.gnupg.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
